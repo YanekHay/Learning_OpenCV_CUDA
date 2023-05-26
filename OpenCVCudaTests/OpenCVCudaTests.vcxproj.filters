@@ -7,7 +7,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils.cpp" />
-    <ClCompile Include="Invert_Color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h" />

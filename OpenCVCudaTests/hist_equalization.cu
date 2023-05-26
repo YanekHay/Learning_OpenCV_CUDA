@@ -56,7 +56,6 @@ __global__ void calc_min_max(unsigned char* image, int channels, int* Min, int* 
 		atomicMin(&Min[i], image[idx + i]);
 		atomicMax(&Max[i], image[idx + i]);
 	}
-
 }
 
 __global__ void histogram_equalization(unsigned char* image, int channels, int* Min, int* Max) {

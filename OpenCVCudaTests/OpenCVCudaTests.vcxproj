@@ -86,7 +86,6 @@
     <CudaCompile Include="invert_color.cu" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Invert_Color.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
