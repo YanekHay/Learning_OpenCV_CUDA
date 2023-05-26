@@ -3,13 +3,16 @@
   <ItemGroup>
     <CudaCompile Include="hist_calculation.cu" />
     <CudaCompile Include="hist_equalization.cu" />
+    <CudaCompile Include="invert_color.cu" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utils.cpp" />
+    <ClCompile Include="Invert_Color.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="utils.h" />
     <ClInclude Include="hist_calculation_CUDA.h" />
     <ClInclude Include="hist_equalization_CUDA.h" />
+    <ClInclude Include="invert_color_CUDA.h" />
   </ItemGroup>
 </Project>

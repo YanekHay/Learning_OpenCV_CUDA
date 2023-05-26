@@ -16,7 +16,7 @@ std::vector<std::string> get_image_paths(fs::path dir, const std::vector<std::st
 	return image_paths;
 }
 
-
+//Resize the given image by keeping the aspect ratio
 cv::Mat _resize(cv::Mat image, const cv::Size& windowSize) {
 	// Maybe change in the future to take the image by refference (cv::Mat& image)
 	double widthRatio = static_cast<double>(windowSize.width) / image.cols;
@@ -30,14 +30,11 @@ cv::Mat _resize(cv::Mat image, const cv::Size& windowSize) {
 }
 
 
-
 std::array<int, BIN_COUNT> calc_grayscale_hist(cv::Mat& image) {
 	std::array<int, BIN_COUNT> hist_grayscale = { 0 };
 
-
 	hist_calculation_CUDA(image.data, image.rows, image.cols, image.channels(), hist_grayscale.data());
 
-	cv::imwrite("Hist.png", image);
 	for (int i = 0; i < BIN_COUNT; i++) {
 		std::cout << "Histogram[" << i << "]: " << hist_grayscale[i] << std::endl;
 	}
@@ -53,11 +50,9 @@ std::tuple<std::array<int, BIN_COUNT>, std::array<int, BIN_COUNT>, std::array<in
 
 	hist_calculation_CUDA(image.data, image.rows, image.cols, image.channels(), B_hist.data(), G_hist.data(), R_hist.data());
 
-	cv::imwrite("Hist.png", image);
 	for (int i = 0; i < BIN_COUNT; i++) {
 		std::cout << "Histogram[" << i << "]: B:" << B_hist[i] << " G:" << G_hist[i] << " R:" << R_hist[i] << std::endl;
 	}
-
 
 	return std::make_tuple(B_hist, G_hist, R_hist);
 }
@@ -65,5 +60,4 @@ std::tuple<std::array<int, BIN_COUNT>, std::array<int, BIN_COUNT>, std::array<in
 
 void equalize_hist(cv::Mat& image) {
 	hist_equalization_CUDA(image.data, image.rows, image.cols, image.channels());
-	cv::imwrite("Hist.png", image);
 }

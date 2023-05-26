@@ -73,9 +73,9 @@ __global__ void calc_histogram_CUDA(unsigned char* image, int* histogram) {
 	int x = blockIdx.x;
 	int y = blockIdx.y;
 
-	int image_idx = x + y * gridDim.x;
+	int idx = x + y * gridDim.x;
 
-	atomicAdd(&histogram[image[image_idx]], 1);
+	atomicAdd(&histogram[image[idx]], 1);
 }
 
 
@@ -83,10 +83,10 @@ __global__ void calc_histogram_CUDA(unsigned char* image, int channels, int* B_h
 	int x = blockIdx.x;
 	int y = blockIdx.y;
 
-	int image_idx = (x + y * gridDim.x) * channels;
+	int idx = (x + y * gridDim.x) * channels;
 
-	atomicAdd(&B_hist[image[image_idx]], 1);
-	atomicAdd(&G_hist[image[image_idx+1]], 1);
-	atomicAdd(&R_hist[image[image_idx+2]], 1);
+	atomicAdd(&B_hist[image[idx]], 1);
+	atomicAdd(&G_hist[image[idx+1]], 1);
+	atomicAdd(&R_hist[image[idx+2]], 1);
 
 }

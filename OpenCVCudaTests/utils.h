@@ -11,6 +11,7 @@
 
 #include "hist_calculation_CUDA.h"
 #include "hist_equalization_CUDA.h"
+#include "invert_color_CUDA.h"
 
 namespace fs = std::filesystem;
 

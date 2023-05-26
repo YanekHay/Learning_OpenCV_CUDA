@@ -39,6 +39,9 @@ void hist_equalization_CUDA(unsigned char* image, int height, int width, int cha
 
 	//Free up GPU
 	cudaFree(cuda_image);
+	cudaFree(cuda_Min);
+	cudaFree(cuda_Max);
+
 
 
 }
@@ -48,10 +51,10 @@ __global__ void calc_min_max(unsigned char* image, int channels, int* Min, int* 
 	int x = blockIdx.x;
 	int y = blockIdx.y;
 
-	int image_idx = (x + y * gridDim.x) * channels;
+	int idx = (x + y * gridDim.x) * channels;
 	for (int i = 0; i < channels; i++) {
-		atomicMin(&Min[i], image[image_idx + i]);
-		atomicMax(&Max[i], image[image_idx + i]);
+		atomicMin(&Min[i], image[idx + i]);
+		atomicMax(&Max[i], image[idx + i]);
 	}
 
 }
@@ -60,9 +63,9 @@ __global__ void histogram_equalization(unsigned char* image, int channels, int* 
 	int x = blockIdx.x;
 	int y = blockIdx.y;
 
-	int image_idx = (x + y * gridDim.x) * channels;
+	int idx = (x + y * gridDim.x) * channels;
 	for (int i = 0; i < channels; i++) {
-		image[image_idx + i] = New_Pixel_Value(image[image_idx + i], Min[i], Max[i]);
+		image[idx + i] = New_Pixel_Value(image[idx + i], Min[i], Max[i]);
 	}
 }
 
